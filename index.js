@@ -3,6 +3,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dbConnect = require("./config/dbConnect");
 
+const userRoute = require("./routes/userRoute");
+
+
 const app = express();
 require("dotenv").config();
 
@@ -15,6 +18,7 @@ app.use(cors());
 
 
 // Mounting different api-url on routes
+app.use("/api/v1/user", userRoute);
 
 
 

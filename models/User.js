@@ -21,11 +21,10 @@ const userSchema = new mongoose.Schema({
 
     role: {
         type: String,
-        enum: ["Employer", "Candidate", "Admin"],
-        default: "Candidate"
+        enum: ["Employer", "Candidate", "Admin"]
     },
 
-    isVerfied: {
+    isVerified: {
         type: Boolean,
         default: false
     },
@@ -33,6 +32,14 @@ const userSchema = new mongoose.Schema({
     approvedEmployer: {
         type: Boolean,
         default: false
+    },
+
+    otp: {
+        type: String
+    },
+
+    otpExpiry: {
+        type: Date
     },
 
     createdAt: {
