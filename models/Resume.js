@@ -40,6 +40,10 @@ const resumeSchema = new mongoose.Schema({
         certification: [String]
     },
 
+    isActiveResume: {
+        type: Boolean
+    },
+
     uploadedAt: {
         type: Date,
         default: Date.now
