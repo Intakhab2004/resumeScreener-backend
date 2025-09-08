@@ -5,6 +5,7 @@ const fileUpload = require("express-fileupload");
 const dbConnect = require("./config/dbConnect");
 
 const userRoute = require("./routes/userRoute");
+const resumeRoute = require("./routes/resumeRoute");
 const cloudinaryConnect = require("./config/cloudinaryConfig");
 
 
@@ -25,6 +26,7 @@ app.use(cors());
 
 // Mounting different api-url on routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/resume", resumeRoute);
 
 
 cloudinaryConnect();

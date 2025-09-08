@@ -1,5 +1,6 @@
 const { extractTextDataFromPDF } = require("../helpers/pdfParse");
-
+const parseResume = require("../services/resumeParser");
+const Resume = require("../models/Resume");
 const cloudinary = require("cloudinary").v2;
 
 
@@ -27,15 +28,22 @@ exports.resumeDataExtraction = async(req, res) => {
             folder: process.env.FOLDER_NAME,
             resource_type: "raw"
         })
-        const textData = extractTextDataFromPDF(uploadResult.secure_url);
+        const textData = await extractTextDataFromPDF(uploadResult.secure_url);
 
-        /* Ab maut ka khel suru AI ke sath
-           --> regex implement kro
-           --> NLP/NER model sikho aur use kro
-           --> skills extract kro and many more...
+        const parsedData = await parseResume(textData);
 
-        */
+        const newResume = await Resume.create({
+            // candidateId: req.user.id,
+            resumeURL: uploadResult.secure_url,
+            parsedData,
+            isActiveResume: true
+        })
 
+        return res.status(200).json({
+            success: true,
+            message: "Resume uploaded and parsed successfully",
+            newResume
+        })
     }
     catch(error){
         console.log("Something went wrong");
